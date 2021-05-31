@@ -4,7 +4,7 @@
     {
         private ScannedProduct(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public static ScannedProduct NewProduct(string name)

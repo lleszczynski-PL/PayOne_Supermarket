@@ -22,15 +22,12 @@ namespace PayOneSupermarket
 
         public static CheckOut NewCheckout(IEnumerable<IPriceRule> pricingRules)
         {
-            var checkout = new CheckOut(pricingRules);
-
-            return checkout;
+            return new CheckOut(pricingRules);
         }
 
         public void Scan(ScannedProduct product)
         {
             _scannedProducts.Add(product);
-            
         }
 
         private void Recalculate()
