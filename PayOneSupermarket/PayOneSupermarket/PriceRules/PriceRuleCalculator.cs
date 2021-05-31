@@ -5,10 +5,14 @@ using System.Linq;
 
 namespace PayOneSupermarket.PriceRules
 {
+    /// <summary>
+    /// Calculate prices
+    /// </summary>
     class PriceRuleCalculator
     {
         private readonly IEnumerable<IPriceRule> rules;
         private readonly IEnumerable<ScannedProduct> productsToCalculatePrices;
+        private const int MaxIterations = 10000;
 
         internal PriceRuleCalculator(IEnumerable<IPriceRule> rules, IEnumerable<ScannedProduct> productsToCalculatePrices)
         {
@@ -26,9 +30,14 @@ namespace PayOneSupermarket.PriceRules
             List<ScannedProduct> copyOfScannedProductList = MakeCopyToNotChangeOriginalList();
 
             int total = 0;
-            int iterate = 0;
-            while (copyOfScannedProductList.Count > 0 && iterate <= 1000)
+            int iterate = 0; //security for infinity loop
+            while (copyOfScannedProductList.Count > 0)
             {
+                if (iterate == MaxIterations)
+                {
+                    throw new OverflowException("Max iteration achived!");
+                }
+
                 var productToCalculate = copyOfScannedProductList.FirstOrDefault();
                 if (productToCalculate != null)
                 {
@@ -37,14 +46,16 @@ namespace PayOneSupermarket.PriceRules
                     var calculationResult = bestRuleForProduct.CalculatePrice(productToCalculate, copyOfScannedProductList);
 
                     total += calculationResult.Price;
-
                     RemoveCalculatedProductsFromPendingCalculatedProducts(copyOfScannedProductList, calculationResult);
+
+                    iterate++;
                 }
                 else
                 {
                     break;
                 }
             }
+            
             return total;
         }
 
