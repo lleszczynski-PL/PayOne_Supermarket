@@ -1,18 +1,18 @@
 ﻿using PayOneSupermarket.PriceRules;
 using PayOneSupermarket.Product;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace PayOneSupermarket
 {
+    /// <summary>
+    /// Calculate total price for products in basket
+    /// </summary>
     public class CheckOut
     {
         private readonly IEnumerable<IPriceRule> pricingRules;
 
         private int _total;
-        private List<ScannedProduct> _scannedProducts;
+        private readonly List<ScannedProduct> _scannedProducts;
 
         private CheckOut(IEnumerable<IPriceRule> pricingRules)
         {
@@ -20,11 +20,20 @@ namespace PayOneSupermarket
             _scannedProducts = new List<ScannedProduct>();
         }
 
-        public static CheckOut NewCheckout(IEnumerable<IPriceRule> pricingRules)
+        /// <summary>
+        /// Create new instance of checkout
+        /// </summary>
+        /// <param name="priceRules">price rules for products</param>
+        /// <returns></returns>
+        public static CheckOut NewCheckout(IEnumerable<IPriceRule> priceRules)
         {
-            return new CheckOut(pricingRules);
+            return new CheckOut(priceRules);
         }
 
+        /// <summary>
+        /// Add product to basket
+        /// </summary>
+        /// <param name="product"></param>
         public void Scan(ScannedProduct product)
         {
             _scannedProducts.Add(product);
@@ -35,6 +44,9 @@ namespace PayOneSupermarket
             _total = new PriceRuleCalculator(pricingRules, _scannedProducts).CalculateTotalPrice();
         }
 
+        /// <summary>
+        /// Total price for basket
+        /// </summary>
         public int Total
         {
             get

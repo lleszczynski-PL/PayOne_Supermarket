@@ -9,7 +9,7 @@ namespace PayOneSupermarket.Tests
     [TestClass()]
     public class CheckOutTests
     {
-        private List<IPriceRule> Rules;
+        private readonly List<IPriceRule> Rules;
         public CheckOutTests()
         {
             Rules = new List<IPriceRule>();

@@ -4,9 +4,12 @@ using System.Collections.Generic;
 
 namespace PayOneSupermarket.PriceRules
 {
-    class ConstantPriceRule : BaseProductRule, IPriceRule
+    /// <summary>
+    /// Constant price rule (use for: coca-cola costs $1)
+    /// </summary>
+    class ConstantPriceRule : BasePriceRule, IPriceRule
     {
-        public ConstantPriceRule(string productName, int price, ProductRulePriority priority) : base(productName, price, priority)
+        public ConstantPriceRule(string productName, int price, PriceRulePriority priority) : base(productName, price, priority)
         {
         }
         public PriceRuleCalculateResult CalculatePrice(ScannedProduct product, List<ScannedProduct> allScannedProducts)

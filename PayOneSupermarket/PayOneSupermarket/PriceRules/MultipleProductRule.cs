@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace PayOneSupermarket.PriceRules
 {
-    class MultipleProductRule : BaseProductRule, IPriceRule
+    class MultipleProductRule : BasePriceRule, IPriceRule
     {
         private readonly int quantity;
 
-        public MultipleProductRule(string productName, int quantity, int priceForAllProducts, ProductRulePriority priority) : base(productName, priceForAllProducts, priority)
+        public MultipleProductRule(string productName, int quantity, int priceForAllProducts, PriceRulePriority priority) : base(productName, priceForAllProducts, priority)
         {
             this.quantity = quantity;
         }
