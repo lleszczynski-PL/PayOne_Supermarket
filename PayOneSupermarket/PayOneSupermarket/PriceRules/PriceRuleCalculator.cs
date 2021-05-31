@@ -10,7 +10,7 @@ namespace PayOneSupermarket.PriceRules
         private readonly IEnumerable<IPriceRule> rules;
         private readonly IEnumerable<ScannedProduct> productsToCalculatePrices;
 
-        public PriceRuleCalculator(IEnumerable<IPriceRule> rules, IEnumerable<ScannedProduct> productsToCalculatePrices)
+        internal PriceRuleCalculator(IEnumerable<IPriceRule> rules, IEnumerable<ScannedProduct> productsToCalculatePrices)
         {
             this.rules = rules;
             this.productsToCalculatePrices = productsToCalculatePrices;

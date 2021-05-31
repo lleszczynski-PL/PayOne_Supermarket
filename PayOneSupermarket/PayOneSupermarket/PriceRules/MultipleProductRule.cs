@@ -9,7 +9,7 @@ namespace PayOneSupermarket.PriceRules
     {
         private readonly int quantity;
 
-        public MultipleProductRule(string productName, int quantity, int priceForAllProducts, PriceRulePriority priority) : base(productName, priceForAllProducts, priority)
+        internal MultipleProductRule(string productName, int quantity, int priceForAllProducts, PriceRulePriority priority) : base(productName, priceForAllProducts, priority)
         {
             this.quantity = quantity;
         }

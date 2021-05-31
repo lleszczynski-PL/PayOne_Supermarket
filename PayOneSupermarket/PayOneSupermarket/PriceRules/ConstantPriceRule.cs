@@ -9,7 +9,7 @@ namespace PayOneSupermarket.PriceRules
     /// </summary>
     class ConstantPriceRule : BasePriceRule, IPriceRule
     {
-        public ConstantPriceRule(string productName, int price, PriceRulePriority priority) : base(productName, price, priority)
+        internal ConstantPriceRule(string productName, int price, PriceRulePriority priority) : base(productName, price, priority)
         {
         }
         public PriceRuleCalculateResult CalculatePrice(ScannedProduct product, List<ScannedProduct> allScannedProducts)

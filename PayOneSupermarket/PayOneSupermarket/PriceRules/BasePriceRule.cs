@@ -9,7 +9,7 @@
         protected readonly int price;
         protected readonly PriceRulePriority priority;
 
-        public BasePriceRule(string productName, int price, PriceRulePriority priority)
+        internal BasePriceRule(string productName, int price, PriceRulePriority priority)
         {
             this.productName = productName;
             this.price = price;
