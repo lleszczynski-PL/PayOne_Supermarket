@@ -1,4 +1,5 @@
 ﻿using PayOneSupermarket.DTO;
+using PayOneSupermarket.PriceRules;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,16 +8,16 @@ namespace PayOneSupermarket
 {
     public class CheckOut
     {
-        private readonly IEnumerable<PricingRule> pricingRules;
+        private readonly IEnumerable<IPriceRule> pricingRules;
 
         private int _total;
 
-        private CheckOut(IEnumerable<PricingRule> pricingRules)
+        private CheckOut(IEnumerable<IPriceRule> pricingRules)
         {
             this.pricingRules = pricingRules;
         }
 
-        public static CheckOut NewCheckout(IEnumerable<PricingRule> pricingRules)
+        public static CheckOut NewCheckout(IEnumerable<IPriceRule> pricingRules)
         {
             var checkout = new CheckOut(pricingRules);
 
