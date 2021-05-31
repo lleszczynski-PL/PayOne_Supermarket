@@ -1,37 +1,57 @@
-﻿using PayOneSupermarket.DTO;
-using System;
+﻿using PayOneSupermarket.PriceRules;
+using PayOneSupermarket.Product;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PayOneSupermarket
 {
+    /// <summary>
+    /// Calculate total price for products in basket
+    /// </summary>
     public class CheckOut
     {
-        private readonly IEnumerable<PricingRule> pricingRules;
+        private readonly IEnumerable<IPriceRule> pricingRules;
 
         private int _total;
+        private readonly List<ScannedProduct> _scannedProducts;
 
-        private CheckOut(IEnumerable<PricingRule> pricingRules)
+        private CheckOut(IEnumerable<IPriceRule> pricingRules)
         {
             this.pricingRules = pricingRules;
+            _scannedProducts = new List<ScannedProduct>();
         }
 
-        public static CheckOut NewCheckout(IEnumerable<PricingRule> pricingRules)
+        /// <summary>
+        /// Create new instance of checkout
+        /// </summary>
+        /// <param name="priceRules">price rules for products</param>
+        /// <returns></returns>
+        public static CheckOut NewCheckout(IEnumerable<IPriceRule> priceRules)
         {
-            var checkout = new CheckOut(pricingRules);
-
-            return checkout;
+            return new CheckOut(priceRules);
         }
 
-        public void Scan(Product product)
+        /// <summary>
+        /// Add product to basket
+        /// </summary>
+        /// <param name="product"></param>
+        public void Scan(ScannedProduct product)
         {
-
+            _scannedProducts.Add(product);
         }
 
+        private void Recalculate()
+        {
+            _total = new PriceRuleCalculator(pricingRules, _scannedProducts).CalculateTotalPrice();
+        }
+
+        /// <summary>
+        /// Total price for basket
+        /// </summary>
         public int Total
         {
             get
             {
+                Recalculate();
                 return _total;
             }
         }
